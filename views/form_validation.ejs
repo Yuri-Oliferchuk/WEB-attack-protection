@@ -1,0 +1,79 @@
+<h1>Data sanitizers</h1>
+<form id="email">
+    <label for="email">Email: </label>
+    <input name="email" id="emailForm" type="text" />
+    <input type="submit" value="submit" />
+</form>
+<div id="flash-message-email">Normalized Email:</div>
+
+<form id="formDate" style="margin-top: 10px">
+    <label for="date">Date: </label>
+    <input name="date" id="dateForm" type="text" />
+    <input type="submit" value="submit" />
+</form>
+<div id="flash-message-date">Sanitized Date: </div>
+
+<form id="formEscape" style="margin-top: 10px">
+    <label for="escape">Escape: </label>
+    <input name="escape" id="escapeForm" type="text" />
+    <input type="submit" value="submit" />
+</form>
+<div id="flash-message-escape">Escaped Value: </div>
+
+<!-- <%= typeof(emailStatus) !== null ? emailStatus : '' %> -->
+
+<script>
+
+  formDate.onsubmit = async (e) => {
+    e.preventDefault();
+
+    const date = document.getElementById('dateForm').value;
+
+    let response = await fetch('/date', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json', 
+      },
+      body: JSON.stringify({"dateForm": date})
+    });
+
+    let result = await response.json();
+    document.getElementById('flash-message-date').innerText = `Sanitized Date: ${result.message.sanitizedDate}`
+  };
+
+  formEscape.onsubmit = async (e) => {
+    e.preventDefault();
+
+    const escape= document.getElementById('escapeForm').value;
+
+    let response = await fetch('/escape', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json', 
+      },
+      body: JSON.stringify({"escapeForm": escape})
+    });
+
+    let result = await response.json();
+    document.getElementById('flash-message-escape').innerText = `Escaped Value: ${result.message.escapedValue}`
+  };
+
+  email.onsubmit = async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('emailForm').value;
+
+    let response = await fetch('/email', {
+      method: 'POST',
+      headers: {
+      'Content-Type': 'application/json', 
+      },
+      body: JSON.stringify({"emailForm": email})
+    });
+
+    let result = await response.json();
+    document.getElementById('flash-message-email').innerText = `Normalized Email: ${result.message.normalizedEmail}`
+  };
+
+
+</script>
