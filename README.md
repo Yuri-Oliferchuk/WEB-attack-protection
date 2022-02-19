@@ -1,10 +1,5 @@
 WEB security
 ============
-
-Librarys
---------
-
-# CSRF attacks
 <br>
 csrf_token.js - file with protection from CSRF attack
 <br>
