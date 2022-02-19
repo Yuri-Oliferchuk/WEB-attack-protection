@@ -1,0 +1,15 @@
+<h1>What's your status?</h1>
+<form action="/submit" method="POST">
+
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+  <textarea
+    id="message"
+    name="message"
+    rows="4"
+    cols="50"
+    placeholder="How do you feel today?"
+  ></textarea>
+  <div>
+    <input type="submit" value="Submit" />
+  </div>
+</form>
